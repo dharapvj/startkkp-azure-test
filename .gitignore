@@ -1,0 +1,12 @@
+secrets.md
+.age.txt
+k8s_rsa*
+*-sa-key.json
+*.iml*
+*.private.env.json
+.DS_Store
+.cover
+.env
+.idea
+.kubeconfig
+.vscode

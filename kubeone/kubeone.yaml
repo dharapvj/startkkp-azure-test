@@ -1,0 +1,36 @@
+apiVersion: kubeone.k8c.io/v1beta2
+kind: KubeOneCluster
+versions:
+    kubernetes: v1.22.8
+cloudProvider:
+    azure: {}
+    # External (CCM/CSI migration) will be supported from next release (>1.3.0) of KubeOne
+    external: false
+    cloudConfig: ENC[AES256_GCM,data:SXb9iUICMgcBl0X5KQ0GjiqT7BQkAD7h4NfqEFowMEgoiZsDabB59Bns/q2QroJz0ntxDyOtxJJ/h7mTidFaL4dHEu4O5sfAJodImWc2v5nTwx8is3JTPDKd6OqzHqOI/UkK6b+DRsrdx59t8doeDW7/s7MbhqPAvNmPcj3HEY7ml1pc06TCmHgEb8ThkYfHZwpJCtzZLxmOjOjogPxXVePhWydmAXNwVVssIXzVshjR1lVy2ZDG90GCRFc9RHPcX/EwSkt71wdjsvley9N8r05YRR9Aw8bM7r/V3OH81tF16HkDHYVNulnc3z2enoK08jhwJJglPc5F4mS2Ws6BzmnsDUxAL/KRuuzlbVzfJKLkmh4Qf/N3oFI8xVEcq0Y9w0pjlW/mzf2dL9rYc6y4UKs4KOZcUEelWpKOcMbHcfAY/pxdRUKR6EAobeD3X+Om/wiFg4Oflg61es8uz2J6H3aSu0RUG110EYD7sjDMc9vzrxlT5cnDgv8mnN2GmEA3QeMylklL5xKAUf3qLTBW1Wi2BgOpjSrfZWzjtCTdgH5i35ksE/zCXyDE71tH9egdXq2QZKaM1PMLi8dzXKl0dFDF9JlsLWl/AuDUG23rNmr72y4oX3s6WwLYkVr7fnKCO/YFJ/Iq7UtGlZ1dmHNC20ty3wJtg2TP6yqCXyjFid8Jc+0MG0XOFTa527u+jOrhPvU3CvzmhvkqO7ThHTE30iTzeoXrdm5C7HrsPeQLk3q/pjQhiOf1ZcZXVQfLo4lIQKIeYyErvRd/DV+wkeRj,iv:khpA0QA2mjSar/fLXyN3MSqOOXXJFzXzlps8WBEFXNo=,tag:8e3ag7hQnDEqlVUhsz5mWA==,type:str]
+containerRuntime:
+    containerd: {}
+addons:
+    enable: true
+    path: ./addons
+    addons:
+        - name: cluster-autoscaler
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age17d68hneuxnfe7avsu608ea6wv9v9gvr93vlxtvk8zd25s3kan46q0n4zvm
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAydkVHSFozNThaNlY4YmFW
+            QitNT0g5OUhLQ2NhSHdKUWpsUHdIU0ZwN25ZCkhzbTdyakdId1MvMGV3RlpOYThk
+            RmxHdlR0SVEza2lBZS9WNC9JTFRDdFEKLS0tIFZsdGZaN3JzS2hFMklmU21KMkxR
+            OVZLNmhRM251RThMTEx6bFh5K0VXYmcKiJ73z/tyVi143hbnqZ0RQ9GV2Q0OBKB3
+            Rfh+WJ/uAXW5+jW8K7flR6jA874nd1Qq83xppv3e+qgd6TPmCJh+xg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-03-21T13:13:31Z"
+    mac: ENC[AES256_GCM,data:zKslJhM5STMwmn+eeD3jBGTO6V0uzlwOWkwMZjcUCeg4wyjA6qxjcyI5r06Bukku6t/cQAa9CMY00hRVRV+f0xQWj9r1EihSyslDsrqZVgjz3ChKDgSju7Mh+1ZAf25pdUwmGIC74FM8W4oC7OIzCm9Ux/cujBunkGc7Dwho6o0=,iv:4sBCAh0nshLi/vrWezj9h6hP/9G44t5Fyb5OBYKX7B0=,tag:NPGXPYsUWY8qKl7YOZyUeg==,type:str]
+    pgp: []
+    encrypted_regex: (cloudConfig)
+    version: 3.7.1
