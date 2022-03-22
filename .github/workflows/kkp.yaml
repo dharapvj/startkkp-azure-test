@@ -41,6 +41,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Check if we need to prepare Azure terraform remote backend
+        run: |
+          # Dummy because AZ commands can run repeatatively without issues
+          echo "::set-output name=exists::false"
       - name: Create Terraform remote backend
         working-directory: terraform/azure
         run: ./setup_terraform_backend.sh

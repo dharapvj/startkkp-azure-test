@@ -22,6 +22,7 @@ use the configs and how to provision a Kubernetes cluster using KubeOne.
 | worker\_os | OS to run on worker machines | string | `"ubuntu"` | no |
 | worker\_vm\_size |  | string | `"Standard_B2s"` | no |
 
+
 ## Outputs
 
 | Name | Description |
