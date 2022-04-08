@@ -33,11 +33,6 @@ spec:
             {
               "share_kubeconfig": false
             }
-    # disable default ETCD backups for user clusters (this is old way of configuring backup controllers up to 2.18)
-    # with 2.19+ new controllers for backups are not activated until backup destinations are defined on Seed resource
-    seedController:
-        backupRestore:
-            enabled: false
 sops:
     kms: []
     gcp_kms: []
@@ -53,8 +48,8 @@ sops:
             dytRUXFmTkgvMDZIQUN5ZW1oUjNqdEEKfasC0zfJw8tWUD0FF3k6soRzs9FGlU4+
             h/tb+sQUMSBs9HPZEsz+yCiKpAieBSJ9qdcP5DUumi7duo6u6afzRg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-03-21T13:13:31Z"
-    mac: ENC[AES256_GCM,data:RQT4Nvb10WWtxI79nIjKru2QeZXqyeg51Th7cEZcqoE+3X+c///iGJlg5k9TiNnyrdgmNgWtPNH8YUZT9yvyoFwQgwnsZWDeyfYYreqnCkqxslmIBXCUiSOKpenhti9dCap6hCx6AWKThK7DkdaBWZXTajID2BTrvJ9wXac5A/U=,iv:04T6AkNgz4R9oWkc4PbbWx/RTIhnwm3tBdEvsgdBTB4=,tag:FwjsgkYnTXNJ4+FgcJzUFQ==,type:str]
+    lastmodified: "2022-04-08T08:09:51Z"
+    mac: ENC[AES256_GCM,data:1xdSMaH6Q0fdHO3nvdWvEpFg81fOe3zy001Jwj3Z9LNQzYspOoS97JwkkFMVHSa4SyDqhevoc4dNUeIYXyjDi406y+QBy1nXusy6hArJzSS+DzGd+zaiFuyuJeERCx+2h5T7fE0/8W+uD5FBlcGKvEv3K+Nn3H7pCcmxR+UuFno=,iv:0W7di2QbgNcXqc2ElsNEC9d9NUJcwLTfJKxk5imGSQI=,tag:oOnLXRnMcgMlmT7d3RT+Zg==,type:str]
     pgp: []
     encrypted_regex: (issuerClientSecret|issuerCookieKey|serviceAccountKey)
     version: 3.7.1

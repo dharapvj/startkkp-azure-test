@@ -4,9 +4,8 @@ metadata:
   name: globalsettings
 spec:
   cleanupOptions:
-    Enabled: true
-    Enforced: false
-  clusterTypeOptions: 1
+    enabled: true
+    enforced: false
   customLinks:
     - icon: ""
       label: API
