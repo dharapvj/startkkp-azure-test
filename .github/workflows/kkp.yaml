@@ -56,18 +56,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Create Terraform remote backend
-        working-directory: terraform/azure
         uses: azure/CLI@v1
         with:
           azcliversion: 2.30.0
           inlineScript: |
             set -x
-            chmod +x ./setup_terraform_backend.sh
+            chmod +x ./terraform/azure/setup_terraform_backend.sh
             pwd
             ls -ltr
             az account show
             az storage -h
-            setup_terraform_backend.sh
+            terraform/azure/setup_terraform_backend.sh
         if: steps.check-terraform-backend.outputs.exists == 'false'
       - name: Terraform remote backend ready
         run: echo "Terraform remote backend ready, no action needed"
