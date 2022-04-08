@@ -160,6 +160,12 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      - name: Decrypt kubeone config files
+        working-directory: kubeone
+        run: |
+          echo ${{ secrets.SOPS_AGE_SECRET_KEY }} > .age.txt
+          export SOPS_AGE_KEY_FILE=$GITHUB_WORKSPACE/kubeone/.age.txt
+          sops -d -i kubeone.yaml
       - name: Provision/update cluster with KubeOne
         working-directory: kubeone
         run: |
