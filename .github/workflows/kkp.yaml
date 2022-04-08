@@ -54,10 +54,11 @@ jobs:
       - name: Create Terraform remote backend
         working-directory: terraform/azure
         run: |
+          set -x
           chmod +x ./setup_terraform_backend.sh
           pwd
           ls -ltr
-          ./setup_terraform_backend.sh
+          bash ./setup_terraform_backend.sh
         if: steps.check-terraform-backend.outputs.exists == 'false'
       - name: Terraform remote backend ready
         run: echo "Terraform remote backend ready, no action needed"
