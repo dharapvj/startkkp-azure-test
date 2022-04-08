@@ -47,6 +47,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Check if we need to prepare Azure terraform remote backend
+        id: check-terraform-backend
         run: |
           # Dummy because AZ commands can run repeatatively without issues
           echo "::set-output name=exists::false"
@@ -80,6 +81,11 @@ jobs:
         run: |
           terraform init
           terraform plan -out=plan.tfplan
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       - name: Upload Terraform plan
         uses: actions/upload-artifact@v2
         with:
@@ -112,6 +118,11 @@ jobs:
         run: |
           terraform init
           terraform apply -auto-approve plan.tfplan
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
   # Provisions / update the k8s cluster with KubeOne
   # Only executed on "push" event
