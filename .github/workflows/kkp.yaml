@@ -51,14 +51,23 @@ jobs:
         run: |
           # Dummy because AZ commands can run repeatatively without issues
           echo "::set-output name=exists::false"
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Create Terraform remote backend
         working-directory: terraform/azure
-        run: |
-          set -x
-          chmod +x ./setup_terraform_backend.sh
-          pwd
-          ls -ltr
-          bash ./setup_terraform_backend.sh
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            set -x
+            chmod +x ./setup_terraform_backend.sh
+            pwd
+            ls -ltr
+            az account show
+            az storage -h
+            setup_terraform_backend.sh
         if: steps.check-terraform-backend.outputs.exists == 'false'
       - name: Terraform remote backend ready
         run: echo "Terraform remote backend ready, no action needed"
