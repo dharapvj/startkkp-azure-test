@@ -37,6 +37,11 @@ jobs:
   # Prepares terraform backend (s3 bucket) if not exists
   terraform-backend-prepare:
     runs-on: ubuntu-20.04
+    env:
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
     container: quay.io/kubermatic/startio-ci:v0.2.5-0
     steps:
       - name: Check out repository
