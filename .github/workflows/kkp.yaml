@@ -170,6 +170,11 @@ jobs:
         working-directory: kubeone
         run: |
           kubeone apply -m kubeone.yaml -t ../terraform/azure/output.json -y -v
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
 
   # Installs KKP using installer and additional resources for KKP and Flux
   # Only executed on "push" event
