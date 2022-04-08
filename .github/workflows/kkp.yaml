@@ -196,10 +196,26 @@ jobs:
         run: |
           terraform init
           terraform output -json > output.json
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      - name: Decrypt kubeone config files
+        working-directory: kubeone
+        run: |
+          echo ${{ secrets.SOPS_AGE_SECRET_KEY }} > .age.txt
+          export SOPS_AGE_KEY_FILE=$GITHUB_WORKSPACE/kubeone/.age.txt
+          sops -d -i kubeone.yaml
       - name: Retrieve kubeconfig of KubeOne cluster
         working-directory: kubeone
         run: |
           kubeone kubeconfig -m kubeone.yaml -t ../terraform/azure/output.json > kubeconfig
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       - name: Decrypt KKP config files
         working-directory: kubermatic
         run: |
@@ -267,10 +283,26 @@ jobs:
         run: |
           terraform init
           terraform output -json > output.json
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      - name: Decrypt kubeone config files
+        working-directory: kubeone
+        run: |
+          echo ${{ secrets.SOPS_AGE_SECRET_KEY }} > .age.txt
+          export SOPS_AGE_KEY_FILE=$GITHUB_WORKSPACE/kubeone/.age.txt
+          sops -d -i kubeone.yaml
       - name: Retrieve kubeconfig of KubeOne cluster
         working-directory: kubeone
         run: |
           kubeone kubeconfig -m kubeone.yaml -t ../terraform/azure/output.json > kubeconfig
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       - name: Split GITHUB_REPOSITORY
         if: steps.check_flux.outputs.files_exists == 'false'
         uses: rishabhgupta/split-by@v1
