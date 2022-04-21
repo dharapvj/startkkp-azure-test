@@ -193,7 +193,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: kubeconfig
-          path: ${{ KUBEONE_ROOT }}/kubeconfig
+          path: ${{ env.KUBEONE_ROOT }}/kubeconfig
           if-no-files-found: error
   kkp-deploy:
     name: Kubermatic / Deploy
@@ -213,7 +213,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: kubeconfig
-          path: ${{ KUBEONE_ROOT }}
+          path: ${{ env.KUBEONE_ROOT }}
       # FIXME: Temp listing
       - name: Display structure of downloaded files
         run: ls -R ${KUBEONE_ROOT}
@@ -280,7 +280,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: kubeconfig
-          path: ${{ KUBEONE_ROOT }}
+          path: ${{ env.KUBEONE_ROOT }}
       - name: Bootstrap Flux
         if: steps.check_flux.outputs.files_exists == 'false'
         env:
