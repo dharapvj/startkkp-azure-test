@@ -125,6 +125,11 @@ jobs:
           name: terraform-plan
           path: ${{ env.TF_ROOT }}
       - name: Apply Terraform plan
+        env:
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         run: |
           echo '::group::Initializing Terraform working directory'
           terraform -chdir=${TF_ROOT} init
