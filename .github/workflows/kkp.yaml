@@ -56,11 +56,18 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Create Terraform backend
-        run: |
-          chmod +x ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
-          ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
-
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Create Terraform remote backend
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            set -x
+            chmod +x ./terraform/azure/setup_terraform_backend.sh
+            terraform/azure/setup_terraform_backend.sh
   terraform-plan:
     name: Terraform / Plan
     runs-on: ubuntu-20.04
@@ -79,6 +86,10 @@ jobs:
       - name: Create Terraform plan
         env:
           TF_CLI_ARGS_plan: ${{ env.TF_CLI_ARGS_plan }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         run: |
           echo '::group::Initializing Terraform working directory'
           terraform -chdir=${TF_ROOT} init
