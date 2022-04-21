@@ -177,16 +177,18 @@ jobs:
           echo ${{ secrets.SOPS_AGE_SECRET_KEY }} > .age.txt
           export SOPS_AGE_KEY_FILE=.age.txt
           sops -d -i ${KUBEONE_ROOT}/kubeone.yaml
+          set -x
           kubeone ${KUBEONE_GLOBAL_FLAGS} \
             --tfjson ${TF_ROOT}/${TF_OUTPUTS_FILE} \
             --manifest ${KUBEONE_ROOT}/kubeone.yaml \
             apply --auto-approve
-          echo '::endgroup::'
 
           kubeone ${KUBEONE_GLOBAL_FLAGS} \
             --tfjson ${TF_ROOT}/${TF_OUTPUTS_FILE} \
             --manifest ${KUBEONE_ROOT}/kubeone.yaml \
             kubeconfig > ${KUBEONE_ROOT}/kubeconfig
+          ls -ltr ${KUBEONE_ROOT}
+          echo '::endgroup::'
       - name: Upload Terraform outputs
         uses: actions/upload-artifact@v2
         with:
