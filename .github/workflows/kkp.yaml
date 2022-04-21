@@ -57,7 +57,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
       - name: Create Terraform backend
-        run: ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
+        run: |
+          chmod +x ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
+          ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
 
   terraform-plan:
     name: Terraform / Plan
