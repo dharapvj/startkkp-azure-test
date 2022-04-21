@@ -64,6 +64,7 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         run: |
+          az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
           chmod +x ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
           ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
   terraform-plan:
