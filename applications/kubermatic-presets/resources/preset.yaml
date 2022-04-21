@@ -1,0 +1,31 @@
+apiVersion: kubermatic.k8c.io/v1
+kind: Preset
+metadata:
+    name: kkp
+    namespace: kubermatic
+spec:
+    azure:
+        tenantId: ENC[AES256_GCM,data:kWoBmwUwi/GH0vxTMppRVDyPl1s4EDdEWtuHLB2zA28d58kM,iv:kBZaaUQUsaesbTq4lBGraouEotLDBNsELaZH0zwu62Y=,tag:QbpgHQrI0ngKSKT3ddF+sg==,type:str]
+        subscriptionId: ENC[AES256_GCM,data:L0mI+SCgrzyUDKRnmnvk6KACD8WbcuHYkuyk5uHClImAwQGS,iv:pKKTmPsWlcqzdUjHxGAJGOKu608Wu7EFrYO8oMTvW1o=,tag:eCO1FqYM/Y7zjgSooMMv2g==,type:str]
+        clientId: ENC[AES256_GCM,data:v3EgaFWWEWr/EJfm027g+ORCER/Lr+jlazgyGFaZkJdvohjs,iv:MkxXQaK7qXg5EE7kGyUJi8HB41k0f2QMRTaEixkgRcY=,tag:pdrT2Ro5ZKRQGeo//yDyZA==,type:str]
+        clientSecret: ENC[AES256_GCM,data:QZzMI5dowc7TXAfrWT3kSq1EnD71FjzmeWWRXPVZhbiziA==,iv:MKFDJ4ikP7HYc1iY6mDl8hS4/63cQlw36mohLCMUtlo=,tag:m6DMxQ7RzpY+myjdJ7zgTQ==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1ty4mfhmw0gr844zy3pay7czqv786sgyj30edelhaynmuxu78spzssnft40
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTaWYrd202TDdXQnVNMzRu
+            MjhWREhIdXBaenl6cG1ZTWNTZnVDb3gyNkY4CnBzblF5WlRZMVhMMGd1YVM4ZEJ5
+            cmxBcys2Ykl1bWlBR2x4RERnMGZKVWsKLS0tIFpTQlM0SG1MdEwwYlRSTCs5SW5o
+            ZVNBd2l6VjJDL2t0L2hJZFZ1Tm9YejQKjTA7ZC9gDzGzz8om4+4yvwheUqHa7cZu
+            zZEnFNQoMvCniEnl5mVcemLktSCDvbnIG0vXf4qOWSPOReS1t7hAcQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-04-15T11:34:06Z"
+    mac: ENC[AES256_GCM,data:jGpLFysXuS+kpRBMznr0s98TFNkYjw8U/2rBpEy/mTfyA3+cHQtF9XaW9Boi8uyxe22ZamyQkNOrAQzyWSpnmX0mWRbKyQv0n1y1ZhOgqsQNluwUz7F+j/MI7Ai217dcCN1YGGPH6YDmz4YM5l/ty7CCvA/PbV51tHwPgdpURs8=,iv:lVpN2CXAY2O9UQbuBJTdgdNpKFswg8rB/YGRXGeZdos=,tag:cV5jthWoSD6vy0kYWE/Rlg==,type:str]
+    pgp: []
+    encrypted_regex: (accessKeyID|secretAccessKey|username|password|tenantId|subscriptionId|clientId|clientSecret|serviceAccount)
+    version: 3.7.1

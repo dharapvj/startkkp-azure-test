@@ -1,8 +1,8 @@
 apiVersion: kubermatic.k8c.io/v1
 kind: UserProjectBinding
 metadata:
-  name: jk5hbfouzt
+  name: ubgy0agskq
 spec:
-  group: owners-fmhajiughf
-  projectID: fmhajiughf
+  group: owners-urnt0lfxbj
+  projectID: urnt0lfxbj
   userEmail: vijay

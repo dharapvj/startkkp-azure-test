@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: karma
-  namespace: monitoring
+  namespace: kubermatic
 spec:
   chart:
     spec:
@@ -12,6 +12,9 @@ spec:
         name: kubermatic-git
         namespace: kubermatic
   interval: 5m
+  releaseName: karma
+  storageNamespace: monitoring
+  targetNamespace: monitoring
   valuesFrom:
     - kind: Secret
       name: kubermatic-values

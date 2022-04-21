@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-readonly GENERATED_BUCKET_SUFFIX="ypwzkwcjuxnw"
+readonly GENERATED_BUCKET_SUFFIX="nfodh7wt41kq"
 readonly TF_STATE_BUCKET_NAME="tf-state-kkp-$GENERATED_BUCKET_SUFFIX"
 readonly RG="startkkp-tfstate" # cannot be this as this gets created by terraform
 readonly STORAGE_ACCT="kkpstorageacct"

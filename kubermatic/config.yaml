@@ -1,0 +1,55 @@
+apiVersion: kubermatic.k8c.io/v1
+kind: KubermaticConfiguration
+metadata:
+    name: kubermatic
+    namespace: kubermatic
+spec:
+    ingress:
+        domain: azure-test.kkp.io
+        certificateIssuer:
+            apiGroup: null
+            kind: ClusterIssuer
+            name: letsencrypt-prod
+        className: nginx
+    auth:
+        clientID: kubermatic
+        issuerClientID: kubermaticIssuer
+        skipTokenIssuerTLSVerify: true
+        tokenIssuer: https://azure-test.kkp.io/dex
+        issuerClientSecret: ENC[AES256_GCM,data:n/VUzX7iq3BdeDeLzW03j2+yyCsc1QiqkepfVYT+jCg=,iv:2siCPE5R06mFdVRjHygie872p8dtGFIYw97etR2NVhk=,tag:ITA/GOPa+p4AUNzf8oCa6g==,type:str]
+        issuerCookieKey: ENC[AES256_GCM,data:yNEgkJuUcMhxHrs8EEn1sYfWkOy7XbyoLl9uXBqZ/kA=,iv:8FDDu3LF4W/v2Mh5Fgzm1lULcNEHB/WEhHk9q5uGgKE=,tag:7aOrWSlVw+HFkvb83k6Jng==,type:str]
+        serviceAccountKey: ENC[AES256_GCM,data:yWWWJ0Og4pCexhgSOgdFwXv88ZzJgBdlCrhqQyTBe34=,iv:zyrGrPeYgIHyK4hpSiTicN8GfipH+0mct0ZQd/1TnE8=,tag:0eahwsqstNkiWkCioNkBMg==,type:str]
+        issuerRedirectURL: https://azure-test.kkp.io/api/v1/kubeconfig
+    featureGates:
+        # exposes an HTTP endpoint for generating kubeconfig
+        # for a cluster that will contain OIDC tokens
+        OIDCKubeCfgEndpoint: false
+        # configures the flags on the API server to use
+        # OAuth2 identity providers
+        OpenIDAuthPlugin: false
+    ui:
+        # enable shared kubeconfig feature in the dashboard
+        config: |-
+            {
+              "share_kubeconfig": false
+            }
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1ty4mfhmw0gr844zy3pay7czqv786sgyj30edelhaynmuxu78spzssnft40
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZNms2enFWQXpBazgvQjFK
+            V0l6cWxzZFRrelZOZUd6NVM2UFFpQ1YvRFhRCmxVOWxOTmZ0djVEWTB0cUJycFdW
+            YUM0eHRwZlBnb1h6YTJBQ1JVL1k2R2sKLS0tIEszMzJ6WVprTkpKY09wVWpqeHFH
+            WGtaUUdiUCticEwwNjQyazdXQkdKWEUKJ2arVr5fgAvvwVkTyNQmiJv/qCdFA99Y
+            0aydi3+0xjZN54Chl4aPPOf2YD96qKoHAGtQ5564F7BuvIj05DnpKw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-04-15T11:34:06Z"
+    mac: ENC[AES256_GCM,data:n2Mt+fEk2/CuHe1xiKx5rPEbgiTfOceBeguMiCuw5xo1mqZx9F087SHfl95S1QvVnLv3ijFCZ5n81HL0s0tDuTboMpbDU5ogOrKqp5X84bAh9OgqDVWfT3Vq4RyOiq7nyUwXa2kXLRGrKWsMD6qagwzYDaT75IMyiVfIQfv5D/Q=,iv:4of3AGROCvuSOEfxdmuUydTWuqFokYhrdD9P8pA2pmw=,tag:mGYuFBf6swAQVdqXt7JUBA==,type:str]
+    pgp: []
+    encrypted_regex: (issuerClientSecret|issuerCookieKey|serviceAccountKey)
+    version: 3.7.1

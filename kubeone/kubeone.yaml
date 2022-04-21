@@ -1,12 +1,12 @@
 apiVersion: kubeone.k8c.io/v1beta2
 kind: KubeOneCluster
 versions:
-    kubernetes: v1.22.8
+    kubernetes: v1.23.5
 cloudProvider:
     azure: {}
     # External (CCM/CSI migration) will be supported from next release (>1.3.0) of KubeOne
     external: false
-    cloudConfig: ENC[AES256_GCM,data:SXb9iUICMgcBl0X5KQ0GjiqT7BQkAD7h4NfqEFowMEgoiZsDabB59Bns/q2QroJz0ntxDyOtxJJ/h7mTidFaL4dHEu4O5sfAJodImWc2v5nTwx8is3JTPDKd6OqzHqOI/UkK6b+DRsrdx59t8doeDW7/s7MbhqPAvNmPcj3HEY7ml1pc06TCmHgEb8ThkYfHZwpJCtzZLxmOjOjogPxXVePhWydmAXNwVVssIXzVshjR1lVy2ZDG90GCRFc9RHPcX/EwSkt71wdjsvley9N8r05YRR9Aw8bM7r/V3OH81tF16HkDHYVNulnc3z2enoK08jhwJJglPc5F4mS2Ws6BzmnsDUxAL/KRuuzlbVzfJKLkmh4Qf/N3oFI8xVEcq0Y9w0pjlW/mzf2dL9rYc6y4UKs4KOZcUEelWpKOcMbHcfAY/pxdRUKR6EAobeD3X+Om/wiFg4Oflg61es8uz2J6H3aSu0RUG110EYD7sjDMc9vzrxlT5cnDgv8mnN2GmEA3QeMylklL5xKAUf3qLTBW1Wi2BgOpjSrfZWzjtCTdgH5i35ksE/zCXyDE71tH9egdXq2QZKaM1PMLi8dzXKl0dFDF9JlsLWl/AuDUG23rNmr72y4oX3s6WwLYkVr7fnKCO/YFJ/Iq7UtGlZ1dmHNC20ty3wJtg2TP6yqCXyjFid8Jc+0MG0XOFTa527u+jOrhPvU3CvzmhvkqO7ThHTE30iTzeoXrdm5C7HrsPeQLk3q/pjQhiOf1ZcZXVQfLo4lIQKIeYyErvRd/DV+wkeRj,iv:khpA0QA2mjSar/fLXyN3MSqOOXXJFzXzlps8WBEFXNo=,tag:8e3ag7hQnDEqlVUhsz5mWA==,type:str]
+    cloudConfig: ENC[AES256_GCM,data:QT4QMN8PQelu+nI2A2PcNEYaYgA+R4vreAs8v+Lecumuy1orVvPVyA4bFr7iC/O3yfI6uNoI2ehPWCsDdTQ6ED0dF/E69v1Mpbzl4s3V9yGwWVdi/3tdXyW95NyQpQLAbLBILjGFnqiEBwYehouswaHND0Nl61RpuLVFHLo90cN6HwzgGXa4+4nCtVKvRytoMuTu3fxWt5SWRw4o2bjKFn0NnneiLZppAuVWJKp8ZFeR7tVxrdbK+IOGyV81NjU1gZKbvUlw28Oh4CB7oJ7Ve5cGYVgxnXb4Vf+rqBMO9I/WsNZ+1wNpy3mD0txAtuaVAEwTJUab5Ow1gpBBphXPJlmmK7YBqRXEorx4/RkVltd1tAOmNeI6XlULRUdFDVJXBw2RdQXaVPslzvX6SCXaSRbrCbZgo+jMMWBuuUZKDicIPJMweGQCiox1LenMsjJumgiNcwyqZZA3gaBOc6N27AZf0FIanDGInqdoxATbDlkCa89cDEX9m0121mhQSJsEUG8sOlh2/30iWwXNQObxNxkHc8Av4pXRIblNRzpEcxteCx76Q1IaGiZuP1cXXs1eD1n06HkslWsqsOlunLOY4KnT9+F3vp5ChGT7/5p9FOCjK6xVCQBf6cBDG7ccai4ZL2LhkEoC4PwNQ/WYaj3wimHI+w999eqH77gaqrznOOeIjCHIt1cpNsIHQJISog9wU3Fc3NehCZZu8FblN2DvKHuTvMiuOBlsjC3XEVDtsiHGFi1liX1CLDRPVQ==,iv:z1sQHQr+Hs/YelaiixHa8huQtg8L7GmGFkOqPBkcQp8=,tag:y2/rENr5quM2+BLVdeCQmA==,type:str]
 containerRuntime:
     containerd: {}
 addons:
@@ -20,17 +20,17 @@ sops:
     azure_kv: []
     hc_vault: []
     age:
-        - recipient: age17d68hneuxnfe7avsu608ea6wv9v9gvr93vlxtvk8zd25s3kan46q0n4zvm
+        - recipient: age1ty4mfhmw0gr844zy3pay7czqv786sgyj30edelhaynmuxu78spzssnft40
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAydkVHSFozNThaNlY4YmFW
-            QitNT0g5OUhLQ2NhSHdKUWpsUHdIU0ZwN25ZCkhzbTdyakdId1MvMGV3RlpOYThk
-            RmxHdlR0SVEza2lBZS9WNC9JTFRDdFEKLS0tIFZsdGZaN3JzS2hFMklmU21KMkxR
-            OVZLNmhRM251RThMTEx6bFh5K0VXYmcKiJ73z/tyVi143hbnqZ0RQ9GV2Q0OBKB3
-            Rfh+WJ/uAXW5+jW8K7flR6jA874nd1Qq83xppv3e+qgd6TPmCJh+xg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBmNFQ2REVFY1V5WitNOWJG
+            d3p1Z1V6UlJLTUhDL3Q3aFdCdU9jajlPNnpnClE0ZUp0WmowcGVvamlxVFBUWWRz
+            Wk03ZlcyOXNXSXAyNFpPcXU5TW1XcWcKLS0tIFBoUEZVbmtRWEdVNHhlMTBGYmJ0
+            WTY2NXFVaEFFVFBDSXJqbi91NUlrRFEKy0bDYn1EDdMpySEdISM+To5CVRAQQhEd
+            lnvcGiim5y1niYpAr6MdU91DtipjuJ9PgKMc/6qbxoPHBOhklbrPrA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-03-21T13:13:31Z"
-    mac: ENC[AES256_GCM,data:zKslJhM5STMwmn+eeD3jBGTO6V0uzlwOWkwMZjcUCeg4wyjA6qxjcyI5r06Bukku6t/cQAa9CMY00hRVRV+f0xQWj9r1EihSyslDsrqZVgjz3ChKDgSju7Mh+1ZAf25pdUwmGIC74FM8W4oC7OIzCm9Ux/cujBunkGc7Dwho6o0=,iv:4sBCAh0nshLi/vrWezj9h6hP/9G44t5Fyb5OBYKX7B0=,tag:NPGXPYsUWY8qKl7YOZyUeg==,type:str]
+    lastmodified: "2022-04-15T11:34:06Z"
+    mac: ENC[AES256_GCM,data:i+QC77rk60ow5iiHBKu60l9a9Kpq9BbiYhkmD5SvbuEaKdaOOUnZWmLkrmbXTJt/1HAlDHTMlITYdlxMkFIQjUKqFgcFfpr7pBEWyHXRE+xQGI9MUYl0AX2OZJAQUBZd4hWeeSUfh/PN7T2HVaqqnN+EZQvPN6+0ftRPLBq/e4s=,iv:idOrzsYCa2tj+cHmgo+XEFATEnBTCQMh+E1rbk++fjs=,tag:cEBRhcRbQLnCpKmQ+ZEegQ==,type:str]
     pgp: []
     encrypted_regex: (cloudConfig)
     version: 3.7.1

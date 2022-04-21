@@ -1,8 +1,8 @@
 apiVersion: kubermatic.k8c.io/v1
 kind: Project
 metadata:
-  name: fmhajiughf
+  name: urnt0lfxbj
 spec:
-  name: first
+  name: project1
 status:
   phase: Active

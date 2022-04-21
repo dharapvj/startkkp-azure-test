@@ -51,16 +51,16 @@ ssh-keygen -t rsa -b 4096 -C "<ADMIN_EMAIL>" -f ~/.ssh/k8s_rsa
 
 _*Note*:_ Make sure you don't have a passphrase set on the private key as it would cause an issue in automated pipeline.
 
-If you choose a different location for the key, make sure to update the `ssh_public_key_file` variable in `terraform.tfvars`!
+If you choose a different location for the key, make sure to update the `ssh_public_key_file` variable in `terraform/main.tf`!
 
 ### Prepare infrastructure with Terraform
 
 ```bash
-cd terraform/azure
+cd terraform
 terraform init
 terraform apply
 terraform output -json > output.json
-cd ../..
+cd ..
 ```
 
 ### Initialize k8s cluster with KubeOne
@@ -69,8 +69,8 @@ cd ../..
 cd kubeone
 eval `ssh-agent`
 ssh-add ~/.ssh/k8s_rsa
-kubeone apply -m kubeone.yaml -t ../terraform/azure/output.json -y -v
-export KUBECONFIG=`pwd`/condescending-kalam-kubeconfig
+kubeone apply -m kubeone.yaml -t ../terraform/output.json -y -v
+export KUBECONFIG=`pwd`/friendly-easley-kubeconfig
 cd ..
 ```
 
@@ -81,26 +81,20 @@ First we need to decrypt the kkp-config and helm values, put the secret key from
 ```bash
 export SOPS_AGE_KEY_FILE=`pwd`/.age.txt
 cd kubermatic
-sops -d -i kubermatic-configuration.yaml
+sops -d -i config.yaml
 sops -d -i values.yaml
 export VERSION=v2.20.0
 wget https://github.com/kubermatic/kubermatic/releases/download/${VERSION}/kubermatic-ce-${VERSION}-linux-amd64.tar.gz
 tar -xzvf kubermatic-ce-${VERSION}-linux-amd64.tar.gz
-./kubermatic-installer deploy --config kubermatic-configuration.yaml --helm-values values.yaml --storageclass aws
+./kubermatic-installer deploy --config config.yaml --helm-values values.yaml --storageclass azure
 cd ..
 ```
 
 ### Prepare other resources for KKP and Flux
 
 ```bash
-# Cluster Issuer for cert-manager (let's encrypt)
-kubectl apply -f kubermatic/cluster-issuer.yaml
 # kubeconfig Secret to be used for Seed cluster configuration
-kubectl create secret generic kubeconfig-cluster -n kubermatic --from-file=kubeconfig=`pwd`/kubeone/condescending-kalam-kubeconfig --dry-run=client -o yaml | kubectl apply -f -
-# Values for helm releases are able to read secret only from same namespace so we need values in all NS
-kubectl create secret generic kubermatic-values -n logging --from-file=values.yaml=`pwd`/kubermatic/values.yaml --dry-run=client -o yaml | kubectl apply -f -
-kubectl create secret generic kubermatic-values -n monitoring --from-file=values.yaml=`pwd`/kubermatic/values.yaml --dry-run=client -o yaml | kubectl apply -f -
-kubectl create secret generic kubermatic-values -n iap --from-file=values.yaml=`pwd`/kubermatic/values.yaml --dry-run=client -o yaml | kubectl apply -f -
+kubectl create secret generic kubeconfig-cluster -n kubermatic --from-file=kubeconfig=`pwd`/kubeone/friendly-easley-kubeconfig --dry-run=client -o yaml | kubectl apply -f -
 cat .age.txt | kubectl -n kubermatic create secret generic sops-age --from-file=age.agekey=/dev/stdin --dry-run=client -o yaml | kubectl apply -f -
 ```
 

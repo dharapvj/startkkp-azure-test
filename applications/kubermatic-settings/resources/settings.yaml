@@ -10,29 +10,41 @@ spec:
     - icon: ""
       label: API
       location: default
-      url: https://vj-azure.lab.kubermatic.io/rest-api
+      url: https://azure-test.kkp.io/rest-api
     - icon: ""
       label: Prometheus
       location: default
-      url: https://prometheus.vj-azure.lab.kubermatic.io
+      url: https://prometheus.azure-test.kkp.io
     - icon: ""
       label: Alertmanager
       location: default
-      url: https://alertmanager.vj-azure.lab.kubermatic.io
+      url: https://alertmanager.azure-test.kkp.io
     - icon: ""
       label: Grafana
       location: default
-      url: https://grafana.vj-azure.lab.kubermatic.io
+      url: https://grafana.azure-test.kkp.io
     - icon: ""
       label: Karma
       location: default
-      url: https://karma.vj-azure.lab.kubermatic.io
+      url: https://karma.azure-test.kkp.io
 
   defaultNodeCount: 2
   displayAPIDocs: true
   displayDemoInfo: false
   displayTermsOfService: false
   enableDashboard: true
+  enableExternalClusterImport: true
   enableOIDCKubeconfig: false
+  machineDeploymentVMResourceQuota:
+    enableGPU: false
+    maxCPU: 32
+    maxRAM: 128
+    minCPU: 1
+    minRAM: 2
+  mlaAlertmanagerPrefix: ""
+  mlaGrafanaPrefix: ""
+  mlaOptions: {}
+  opaOptions: {}
   restrictProjectCreation: false
   userProjectsLimit: 0
+  

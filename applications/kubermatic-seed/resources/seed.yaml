@@ -6,12 +6,12 @@ metadata:
 spec:
   country: IN
   datacenters:
-    southindia:
+    dc1:
       country: "IN"
-      location: "southindia"
+      location: "KKP-TEST"
       spec:
         azure:
-          location: "Azure Cloud"
+          location: "southindia"
   kubeconfig:
     name: kubeconfig-cluster
     namespace: kubermatic
