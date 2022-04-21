@@ -53,21 +53,14 @@ jobs:
     name: Terraform / Prepare
     runs-on: ubuntu-20.04
     # our container is no good for az
-    # container: quay.io/kubermatic/startio-ci:v0.2.4-0
+    container: mcr.microsoft.com/azure-cli:2.30.0
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Create Terraform remote backend
-        uses: azure/CLI@v1
-        with:
-          azcliversion: 2.30.0
-          inlineScript: |
-            chmod +x ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
-            ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
+        run: |
+          chmod +x ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
+          ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
   terraform-plan:
     name: Terraform / Plan
     runs-on: ubuntu-20.04
@@ -170,11 +163,24 @@ jobs:
       - name: Reconcile KubeOne cluster
         run: |
           echo '::group::Reconciling KubeOne cluster'
+          echo ${{ secrets.SOPS_AGE_SECRET_KEY }} > .age.txt
+          export SOPS_AGE_KEY_FILE=.age.txt
+          sops -d -i ${KUBEONE_ROOT}/kubeone.yaml
           kubeone ${KUBEONE_GLOBAL_FLAGS} \
             --tfjson ${TF_ROOT}/${TF_OUTPUTS_FILE} \
             --manifest ${KUBEONE_ROOT}/kubeone.yaml \
             apply --auto-approve
           echo '::endgroup::'
+
+          kubeone ${KUBEONE_GLOBAL_FLAGS} \
+            --tfjson ${TF_ROOT}/${TF_OUTPUTS_FILE} \
+            --manifest ${KUBEONE_ROOT}/kubeone.yaml \
+            kubeconfig > ${KUBEONE_ROOT}/kubeconfig
+      - name: Upload Terraform outputs
+        uses: actions/upload-artifact@v2
+        with:
+          name: kubeconfig
+          path: ${KUBEONE_ROOT}/kubeconfig
 
   kkp-deploy:
     name: Kubermatic / Deploy
@@ -193,14 +199,11 @@ jobs:
       - name: Download Terraform outputs
         uses: actions/download-artifact@v2
         with:
-          name: terraform-outputs
-          path: ${{ env.TF_ROOT }}
-      - name: Download KubeOne kubeconfig
-        run: |
-          kubeone ${KUBEONE_GLOBAL_FLAGS} \
-            --tfjson ${TF_ROOT}/${TF_OUTPUTS_FILE} \
-            --manifest ${KUBEONE_ROOT}/kubeone.yaml \
-            kubeconfig > ${KUBEONE_ROOT}/kubeconfig
+          name: kubeconfig
+          path: ${KUBEONE_ROOT}
+      # FIXME: Temp listing
+      - name: Display structure of downloaded files
+        run: ls -R ${KUBEONE_ROOT}
       - name: Download KKP installer
         run: |
           wget https://github.com/kubermatic/kubermatic/releases/download/${KKP_VERSION}/kubermatic-ce-${KKP_VERSION}-linux-amd64.tar.gz
@@ -259,19 +262,12 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Download Terraform outputs
+      - name: Download Kubeconfig
         if: steps.check_flux.outputs.files_exists == 'false'
         uses: actions/download-artifact@v2
         with:
-          name: terraform-outputs
-          path: ${{ env.TF_ROOT }}
-      - name: Download KubeOne kubeconfig
-        if: steps.check_flux.outputs.files_exists == 'false'
-        run: |
-          kubeone ${KUBEONE_GLOBAL_FLAGS} \
-            --tfjson ${TF_ROOT}/${TF_OUTPUTS_FILE} \
-            --manifest ${KUBEONE_ROOT}/kubeone.yaml \
-            kubeconfig > ${KUBEONE_ROOT}/kubeconfig
+          name: kubeconfig
+          path: ${KUBEONE_ROOT}
       - name: Bootstrap Flux
         if: steps.check_flux.outputs.files_exists == 'false'
         env:
