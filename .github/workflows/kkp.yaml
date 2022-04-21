@@ -66,9 +66,8 @@ jobs:
         with:
           azcliversion: 2.30.0
           inlineScript: |
-            set -x
-            chmod +x ./terraform/azure/setup_terraform_backend.sh
-            terraform/azure/setup_terraform_backend.sh
+            chmod +x ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
+            ${TF_ROOT}/bin/azure/setup_terraform_backend.sh
   terraform-plan:
     name: Terraform / Plan
     runs-on: ubuntu-20.04
